@@ -1,0 +1,12 @@
+{
+    "id": "{D12C0D98-F4E5-A511-D63F-207EB7F4C4D2}",
+    "name": "TileSwap",
+    "type": 3,
+    "vendor": "",
+    "aliases": [],
+    "parentRequirements": [],
+    "childRequirements": [],
+    "implemented": [],
+    "prefix": "TSWAP",
+    "url": ""
+}

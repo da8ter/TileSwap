@@ -1,0 +1,26 @@
+{
+    "elements": [
+        { "type": "Label", "caption": "Add objects (instances, variables or dummy instances) to the list to appear on your tile." },
+        {
+            "type": "List",
+            "name": "Targets",
+            "caption": "Tile contents",
+            "rowCount": 8,
+            "add": true,
+            "delete": true,
+            "columns": [
+                {
+                    "caption": "Objects",
+                    "name": "ObjectID",
+                    "width": "auto",
+                    "add": 0,
+                    "edit": { "type": "SelectObject" }
+                }
+            ]
+        },
+        { "type": "CheckBox", "name": "AutoReset", "caption": "Enable auto reset" },
+        { "type": "NumberSpinner", "name": "ResetSeconds", "caption": "Revert to previous content after (s)", "minimum": 0, "suffix": " s" }
+    ],
+    "actions": [],
+    "status": []
+}

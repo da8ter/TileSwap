@@ -1,0 +1,13 @@
+{
+    "translations": {
+        "de": {
+            "Tile Switch": "Tile-Schalter",
+            "Add objects (instances, variables or dummy instances) to the list to appear on your tile.": "Füge Inhalte wie Instanzen, Variablen, oder Dummy-Instanzen zur Liste hinzu die in deiner Kachel erscheinen sollen.",
+            "Tile contents": "Kachel-Inhalte",
+            "Objects": "Objekte",
+            "Enable auto reset": "Auto-Reset aktivieren",
+            "Revert to previous content after (s)": "auf den vorherigen Inhalt zurücksetzen nach (s)",
+            "Tile Link": "Kachel-Link"
+        }
+    }
+}
