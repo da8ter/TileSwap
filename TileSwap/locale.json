@@ -6,7 +6,7 @@
             "Tile contents": "Kachel-Inhalte",
             "Objects": "Objekte",
             "Enable auto reset": "Auto-Reset aktivieren",
-            "Revert to previous content after (s)": "auf den vorherigen Inhalt zurücksetzen nach (s)",
+            "Revert to the first List object after (s)": "auf den ersten Inhalt der Liste zurücksetzen nach (s)",
             "Tile Link": "Kachel-Link"
         }
     }

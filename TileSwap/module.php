@@ -122,13 +122,30 @@ class TileSwap extends IPSModule
     public function ResetTarget(): void
     {
         $linkID = $this->GetOrCreateManagedLinkID();
-        $originalTarget = $this->ReadAttributeInteger('OriginalTarget');
 
-        if ($linkID > 0 && $originalTarget > 0 && IPS_ObjectExists($linkID)) {
+        // Determine first valid target from list
+        $firstTargetID = 0;
+        foreach ($this->GetTargets() as $row) {
+            $tid = (int)($row['ObjectID'] ?? 0);
+            if ($tid > 0 && IPS_ObjectExists($tid)) {
+                $firstTargetID = $tid;
+                break;
+            }
+        }
+
+        if ($linkID > 0 && $firstTargetID > 0 && IPS_ObjectExists($linkID)) {
             $obj = IPS_GetObject($linkID);
             if (($obj['ObjectType'] ?? -1) === 6) { // 6 = Link
-                IPS_SetLinkTargetID($linkID, $originalTarget);
-                $this->SendDebug(__FUNCTION__, sprintf('Restored link #%d target to #%d', $linkID, $originalTarget), 0);
+                IPS_SetLinkTargetID($linkID, $firstTargetID);
+                $this->SendDebug(__FUNCTION__, sprintf('Reset link #%d target to first list entry #%d', $linkID, $firstTargetID), 0);
+            }
+        }
+
+        // Reflect index 1 on the variable if it exists and we have a valid first target
+        if ($firstTargetID > 0) {
+            $varID = @$this->GetIDForIdent('TileSwitch');
+            if ($varID) {
+                @SetValueInteger($varID, 1);
             }
         }
 
@@ -165,16 +182,9 @@ class TileSwap extends IPSModule
             return;
         }
 
-        // Store original target only if auto-reset is enabled and seconds > 0 and not already stored
+        // Timer configuration
         $auto = $this->ReadPropertyBoolean('AutoReset');
         $seconds = max(0, $this->ReadPropertyInteger('ResetSeconds'));
-        if ($auto && $seconds > 0 && $this->ReadAttributeInteger('OriginalTarget') === 0) {
-            $link = IPS_GetLink($linkID);
-            $originalTarget = (int)($link['TargetID'] ?? 0);
-            if ($originalTarget > 0) {
-                $this->WriteAttributeInteger('OriginalTarget', $originalTarget);
-            }
-        }
 
         IPS_SetLinkTargetID($linkID, $targetID);
         $this->SendDebug(__FUNCTION__, sprintf('Changed link #%d target to #%d (index %d)', $linkID, $targetID, $index), 0);
@@ -262,11 +272,13 @@ class TileSwap extends IPSModule
         if (!is_array($data)) {
             return [];
         }
-        // Normalize entries
+        // Normalize entries and preserve the array order (drag & drop changeOrder writes the new order)
         $out = [];
         foreach ($data as $row) {
             if (is_array($row)) {
-                $out[] = ['ObjectID' => (int)($row['ObjectID'] ?? 0)];
+                $out[] = [
+                    'ObjectID' => (int)($row['ObjectID'] ?? 0)
+                ];
             }
         }
         return $out;
