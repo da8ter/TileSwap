@@ -1,5 +1,5 @@
 # TileSwap
-Umschalten des Link-Ziels anhand einer Integer-Variable (Tile Switch). Das Modul erstellt und verwaltet automatisch einen Link unterhalb der Modulinstanz. Beim Setzen der (versteckten) Variable auf den Index (1..N) wird das Linkziel auf das entsprechende Ziel geändert. Optional kann ein Auto-Reset nach einer konfigurierbaren Zeit das Linkziel auf das ursprüngliche Ziel zurücksetzen.
+Ermöglicht das austauschen des Inhaltes einer Kachel. So ist es möglich z.B. wenn jemand an der Haustür Klingelt das Bild der Überwachungskamera einzublenden. Optiona kann ein Timer nach Ablauf den ursprünglichen Kachelinhalt wiederherstellen.
 
 ### Inhaltsverzeichnis
 
@@ -29,15 +29,13 @@ Umschalten des Link-Ziels anhand einer Integer-Variable (Tile Switch). Das Modul
 * Alternativ über das Module Control folgende URL hinzufügen
 
 ### 4. Einrichten der Instanzen in IP-Symcon
-
- Unter 'Instanz hinzufügen' kann das 'TileSwap'-Modul mithilfe des Schnellfilters gefunden werden.  
-	- Weitere Informationen zum Hinzufügen von Instanzen in der [Dokumentation der Instanzen](https://www.symcon.de/service/dokumentation/konzepte/instanzen/#Instanz_hinzufügen)
+In der Konsole eine Instanz des TileSwap Moduls erstellen und in der Kachelvisualisierung positionieren. In der Visualisierung die Kachel auf die gewünschte Größe ändern.
+Im Konfigurationsformular der Instanz die Objekte in der Ziel-Liste angeben. Der Inhalt kann über die Variable `Tile Switch` umgeschlatet werden. Die Variable ist standardmäßig verborgen. Um den Kachelinhalt umzuschaltet kann also händisch die Variable geschaltet werden oder z.B. durch eine Aktion...
 
 __Konfigurationsseite__:
 
 Name               | Beschreibung
 ------------------ | ------------------
-Automatischer Link | Das Modul erzeugt automatisch einen Link (`TSWAP_LINK`) unterhalb der Instanz
 Ziel-Liste         | Liste der Ziel-Objekte. Die Position (1..N) entspricht dem Wert der Variable `Tile Switch`
 Auto-Reset         | Aktiviert einen Timer, der nach Ablauf das Linkziel auf das ursprüngliche Ziel zurücksetzt
 Rücksetzen nach (s)| Zeit in Sekunden bis zum automatischen Rücksetzen (nur wenn Auto-Reset aktiv)
