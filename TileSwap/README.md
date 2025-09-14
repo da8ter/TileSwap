@@ -25,8 +25,8 @@ Ermöglicht das austauschen des Inhaltes einer Kachel. So ist es möglich z.B. w
 
 ### 3. Software-Installation
 
-* Über den Module Store das 'TileSwap'-Modul installieren.
-* Alternativ über das Module Control folgende URL hinzufügen
+Alternativ über das Module Control folgende URL hinzufügen:
+`https://github.com/bernhardwenzel/TileSwap`
 
 ### 4. Einrichten der Instanzen in IP-Symcon
 In der Konsole eine Instanz des TileSwap Moduls erstellen und in der Kachelvisualisierung positionieren. In der Visualisierung die Kachel auf die gewünschte Größe ändern.
