@@ -78,6 +78,48 @@ class TileSwap extends IPSModule
         return $linkID;
     }
 
+    /**
+     * One hidden link per target below the instance. The visualization sends a browser only the
+     * objects reachable at page load; retargeting the managed link later announces just the new
+     * target ID (message 11003), not the target's variables. A tile such as Energy Distribution
+     * then reports "Variable #… does not exist" until the page is reloaded.
+     */
+    private function SyncReferenceLinks(): void
+    {
+        $wanted = [];
+        foreach ($this->GetTargets() as $row) {
+            $tid = (int)($row['ObjectID'] ?? 0);
+            if ($tid > 0 && IPS_ObjectExists($tid)) {
+                $wanted[$tid] = true;
+            }
+        }
+
+        foreach (IPS_GetChildrenIDs($this->InstanceID) as $childID) {
+            $ident = IPS_GetObject($childID)['ObjectIdent'];
+            if (strpos($ident, 'TSWAP_REF_') !== 0) {
+                continue;
+            }
+            $tid = (int)substr($ident, strlen('TSWAP_REF_'));
+            if (isset($wanted[$tid]) && IPS_LinkExists($childID) && IPS_GetLink($childID)['TargetID'] === $tid) {
+                unset($wanted[$tid]);
+                continue;
+            }
+            if (IPS_LinkExists($childID)) {
+                IPS_DeleteLink($childID);
+            }
+        }
+
+        foreach (array_keys($wanted) as $tid) {
+            $linkID = IPS_CreateLink();
+            IPS_SetParent($linkID, $this->InstanceID);
+            IPS_SetIdent($linkID, 'TSWAP_REF_' . $tid);
+            IPS_SetName($linkID, $this->Translate('Tile reference') . ' ' . IPS_GetName($tid));
+            IPS_SetLinkTargetID($linkID, $tid);
+            IPS_SetHidden($linkID, true);
+            IPS_SetPosition($linkID, 1000);
+        }
+    }
+
     public function Destroy()
     {
         // Never delete this line!
@@ -97,6 +139,10 @@ class TileSwap extends IPSModule
 
         // Ensure the managed link exists under this instance
         $linkID = $this->GetOrCreateManagedLinkID();
+
+        if (IPS_GetKernelRunlevel() === KR_READY) {
+            $this->SyncReferenceLinks();
+        }
 
         // Timer config: disable when no link selected or auto-reset disabled/zero seconds
         $auto = $this->ReadPropertyBoolean('AutoReset');

@@ -7,7 +7,8 @@
             "Objects": "Objekte",
             "Enable auto reset": "Auto-Reset aktivieren",
             "Revert to the first List object after (s)": "auf den ersten Inhalt der Liste zurücksetzen nach (s)",
-            "Tile Link": "Kachel-Link"
+            "Tile Link": "Kachel-Link",
+            "Tile reference": "Kachel-Bezug"
         }
     }
 }

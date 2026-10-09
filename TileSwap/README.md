@@ -18,6 +18,7 @@ Ermöglicht das austauschen des Inhaltes einer Kachel. So ist es möglich z.B. w
 * Verwendung der neuen Variablen-Präsentationen (Aufzählung/Enumeration) mit einer Option pro Listeneintrag; Farben sind transparent (-1)
 * Konfigurierbare Liste von Ziel-Objekten (Dummy-Instanzen/Instanzen oder beliebige Objekte)
 * Optionaler Auto-Reset (Timer), der nach Ablauf das ursprüngliche Linkziel wiederherstellt
+* Je Ziel ein versteckter Link „Kachel-Bezug …“ (Ident `TSWAP_REF_<ID>`) unter der Instanz. Die Visualisierung kennt dadurch alle Ziele samt ihrer Variablen schon beim Laden der Seite; ohne diese Links meldet z. B. die Energiefluss-Kachel nach dem Umschalten „Variable mit der ID … existiert nicht“, bis die Seite neu geladen wird
 
 ### 2. Voraussetzungen
 
